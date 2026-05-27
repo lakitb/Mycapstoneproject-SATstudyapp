@@ -96,3 +96,32 @@ def test_unknown_route_uses_safe_fallback_page():
     response = client.get("/not-a-real-route")
     assert response.status_code == 404
     assert b"Page not found" in response.data
+
+
+def test_results_score_matches_exact_user_answers():
+    app = create_app()
+    app.testing = True
+    client = app.test_client()
+
+    client.post("/start", data={"category": "math", "difficulty": "medium"})
+    client.post("/quiz", data={"action": "submit", "choice": "16pi"})
+    response = client.post("/quiz", data={"action": "next"}, follow_redirects=True)
+
+    assert response.status_code == 200
+    assert b"Quiz Complete" in response.data
+    assert b"Score: 1 / 1 (100.0%)" in response.data
+    assert b"Perfect score" in response.data
+
+
+def test_results_without_answers_show_zero_score_and_missed_review():
+    app = create_app()
+    app.testing = True
+    client = app.test_client()
+
+    client.post("/start", data={"category": "reading_writing", "difficulty": "easy"})
+    response = client.get("/results", follow_redirects=True)
+
+    assert response.status_code == 200
+    assert b"Quiz Complete" in response.data
+    assert b"Score: 0 / 1 (0.0%)" in response.data
+    assert b"No answer" in response.data
