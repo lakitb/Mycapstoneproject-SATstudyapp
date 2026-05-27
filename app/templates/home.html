@@ -6,6 +6,12 @@
     <p>Practice SAT questions one at a time with immediate feedback.</p>
 
     <form method="post" action="{{ url_for('quiz.start_quiz') }}" class="category-form">
+      <label for="difficulty"><strong>Difficulty</strong></label>
+      <select id="difficulty" name="difficulty">
+        <option value="easy">Easy</option>
+        <option value="medium">Medium</option>
+        <option value="hard">Hard</option>
+      </select>
       <button type="submit" name="category" value="math">SAT Math</button>
       <button type="submit" name="category" value="reading_writing">SAT Reading &amp; Writing</button>
     </form>

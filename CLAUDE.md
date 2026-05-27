@@ -26,17 +26,21 @@
 - Session key: `quiz`
 - Session payload shape:
   - `category` (`math` or `reading_writing`)
+  - `difficulty` (`easy`, `medium`, or `hard`)
   - `question_ids` (shuffled list per session)
   - `question_index` (zero-based pointer)
   - `responses` (`{question_id: selected_choice}`)
   - `feedback` (result details for current answered question)
+  - `deadline_epoch` (quiz timeout)
+  - `timed_out` (timer expiration flag)
 - Clear `quiz` session state after results render.
 
 ## Constraints and guardrails
 
-- Validate category before quiz starts.
+- Validate category and difficulty before quiz starts.
 - Handle missing/invalid session by redirecting to homepage.
 - Handle missing question data with safe fallback error page.
+- Handle unknown routes with a non-crashing fallback page.
 - Keep code ASCII unless existing file already requires Unicode.
 - Avoid introducing new dependencies unless necessary.
 

@@ -4,6 +4,8 @@
   <section class="card">
     <div class="meta-row">
       <span class="tag">{{ "SAT Math" if category == "math" else "SAT Reading & Writing" }}</span>
+      <span class="tag">{{ difficulty|capitalize }}</span>
+      <span id="timer" class="tag">Time left: --:--</span>
       <span>Question {{ question_number }} of {{ total_questions }}</span>
     </div>
 
@@ -41,4 +43,22 @@
       </form>
     {% endif %}
   </section>
+  <script>
+    const endAt = Date.now() + ({{ remaining_seconds }} * 1000);
+    const timerEl = document.getElementById("timer");
+
+    function renderTimer() {
+      const remainingMs = endAt - Date.now();
+      const remaining = Math.max(0, Math.ceil(remainingMs / 1000));
+      const minutes = String(Math.floor(remaining / 60)).padStart(2, "0");
+      const seconds = String(remaining % 60).padStart(2, "0");
+      timerEl.textContent = `Time left: ${minutes}:${seconds}`;
+      if (remaining <= 0) {
+        window.location.href = "{{ url_for('quiz.results') }}";
+      }
+    }
+
+    renderTimer();
+    setInterval(renderTimer, 1000);
+  </script>
 {% endblock %}

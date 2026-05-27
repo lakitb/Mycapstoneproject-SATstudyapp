@@ -67,3 +67,4 @@ QUESTION_BANK = [
 
 
 VALID_CATEGORIES = {"math", "reading_writing"}
+VALID_DIFFICULTIES = {"easy", "medium", "hard"}

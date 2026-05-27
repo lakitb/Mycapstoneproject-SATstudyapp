@@ -7,6 +7,7 @@ body {
   margin: 0;
   background: #f4f6fb;
   color: #1f2937;
+  line-height: 1.5;
 }
 
 .container {
@@ -32,11 +33,24 @@ body {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
 }
 
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
 .category-form,
 .choices-form {
   display: grid;
   gap: 0.75rem;
   margin-top: 1rem;
+}
+
+select {
+  border: 1px solid #bfdbfe;
+  border-radius: 8px;
+  padding: 0.6rem 0.7rem;
+  font-size: 0.95rem;
 }
 
 button,
@@ -50,11 +64,25 @@ button,
   cursor: pointer;
   text-decoration: none;
   display: inline-block;
+  transition: background-color 0.2s ease, transform 0.08s ease;
 }
 
 button:hover,
 .button-link:hover {
   background: #1e3a8a;
+}
+
+.button-link:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 3px solid #93c5fd;
+  outline-offset: 2px;
+}
+
+button:active,
+.button-link:active {
+  transform: translateY(1px);
 }
 
 .choice {
@@ -65,6 +93,10 @@ button:hover,
   border: 1px solid #dbeafe;
   border-radius: 8px;
   padding: 0.6rem 0.8rem;
+}
+
+.choice:hover {
+  background: #eef2ff;
 }
 
 .meta-row {
@@ -110,6 +142,16 @@ button:hover,
 
 .missed-list {
   padding-left: 1rem;
+}
+
+.missed-list li {
+  margin-bottom: 0.8rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.missed-list li:last-child {
+  border-bottom: none;
 }
 
 @media (max-width: 640px) {

@@ -8,6 +8,13 @@ def test_filter_questions_by_category():
     assert all(question["category"] == "math" for question in math_questions)
 
 
+def test_filter_questions_by_category_and_difficulty():
+    hard_reading = filter_questions(QUESTION_BANK, "reading_writing", "hard")
+    assert len(hard_reading) == 1
+    assert hard_reading[0]["difficulty"] == "hard"
+    assert hard_reading[0]["category"] == "reading_writing"
+
+
 def test_summarize_results_counts_correct_and_missed():
     questions = [
         {

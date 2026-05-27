@@ -6,8 +6,10 @@ Questions are rendered from an in-memory data model and served one at a time wit
 ## Features
 
 - Category selection from homepage
+- Difficulty selection (Easy, Medium, Hard)
 - Randomized question order per quiz session
 - One-question-at-a-time quiz flow
+- 5-minute quiz timer with automatic submission at timeout
 - Instant correctness feedback and explanation
 - Final results summary with score, percentage, and missed question review
 
@@ -27,6 +29,21 @@ Questions are rendered from an in-memory data model and served one at a time wit
 ## Run tests
 
 - `pytest`
+
+## Deploy
+
+This project is deployment-ready for platforms that support `Procfile` (for example, Render or Railway).
+
+### Generic deployment steps
+
+1. Push this repository to GitHub.
+2. Create a new web service in your hosting platform and connect the repo.
+3. Configure:
+   - Build command: `pip install -r requirements.txt`
+   - Start command: `gunicorn wsgi:app`
+4. Set environment variables:
+   - `FLASK_ENV=production`
+5. Deploy and open the generated service URL.
 
 ## Project layout
 

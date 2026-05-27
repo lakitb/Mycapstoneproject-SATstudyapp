@@ -4,8 +4,13 @@ import random
 from typing import Any
 
 
-def filter_questions(questions: list[dict[str, Any]], category: str) -> list[dict[str, Any]]:
-    return [q for q in questions if q.get("category") == category]
+def filter_questions(
+    questions: list[dict[str, Any]], category: str, difficulty: str | None = None
+) -> list[dict[str, Any]]:
+    filtered = [q for q in questions if q.get("category") == category]
+    if not difficulty:
+        return filtered
+    return [q for q in filtered if q.get("difficulty") == difficulty]
 
 
 def shuffled_question_ids(questions: list[dict[str, Any]]) -> list[str]:
