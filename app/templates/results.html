@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Results | SAT Study App{% endblock %}
+{% block content %}
+  <section class="card">
+    <h2>Quiz Complete</h2>
+    <p class="score">
+      Score: {{ result.correct }} / {{ result.total }} ({{ result.percent }}%)
+    </p>
+    <p>Incorrect: {{ result.incorrect }}</p>
+
+    {% if result.missed %}
+      <h3>Review Missed Questions</h3>
+      <ul class="missed-list">
+        {% for item in result.missed %}
+          <li>
+            <p><strong>{{ item.text }}</strong></p>
+            <p>Your answer: {{ item.selected or "No answer" }}</p>
+            <p>Correct answer: {{ item.correct_answer }}</p>
+            <p>{{ item.explanation }}</p>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>Perfect score. Great job!</p>
+    {% endif %}
+
+    <a class="button-link" href="{{ url_for('quiz.home') }}">Start Another Quiz</a>
+  </section>
+{% endblock %}

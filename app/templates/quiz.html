@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Quiz | SAT Study App{% endblock %}
+{% block content %}
+  <section class="card">
+    <div class="meta-row">
+      <span class="tag">{{ "SAT Math" if category == "math" else "SAT Reading & Writing" }}</span>
+      <span>Question {{ question_number }} of {{ total_questions }}</span>
+    </div>
+
+    <h2>{{ question.text }}</h2>
+
+    {% if error_message %}
+      <p class="error">{{ error_message }}</p>
+    {% endif %}
+
+    {% if feedback %}
+      <div class="feedback {{ 'correct' if feedback.is_correct else 'incorrect' }}">
+        <p>
+          {% if feedback.is_correct %}
+            Correct!
+          {% else %}
+            Not quite. The correct answer is <strong>{{ feedback.correct_answer }}</strong>.
+          {% endif %}
+        </p>
+        <p>{{ feedback.explanation }}</p>
+      </div>
+      <form method="post" action="{{ url_for('quiz.show_quiz') }}">
+        <input type="hidden" name="action" value="next" />
+        <button type="submit">Next Question</button>
+      </form>
+    {% else %}
+      <form method="post" action="{{ url_for('quiz.show_quiz') }}" class="choices-form">
+        <input type="hidden" name="action" value="submit" />
+        {% for choice in question.choices %}
+          <label class="choice">
+            <input type="radio" name="choice" value="{{ choice }}" />
+            <span>{{ choice }}</span>
+          </label>
+        {% endfor %}
+        <button type="submit">Submit Answer</button>
+      </form>
+    {% endif %}
+  </section>
+{% endblock %}

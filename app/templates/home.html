@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Start Quiz | SAT Study App{% endblock %}
+{% block content %}
+  <section class="card">
+    <h2>Choose a Quiz Category</h2>
+    <p>Practice SAT questions one at a time with immediate feedback.</p>
+
+    <form method="post" action="{{ url_for('quiz.start_quiz') }}" class="category-form">
+      <button type="submit" name="category" value="math">SAT Math</button>
+      <button type="submit" name="category" value="reading_writing">SAT Reading &amp; Writing</button>
+    </form>
+  </section>
+{% endblock %}
